@@ -55,4 +55,20 @@ class CategoryPolicy
             ? Response::allow()
             : Response::denyAsNotFound();
     }
+
+    /**
+     * Determine whether the user can archive the category.
+     */
+    public function archive(User $user, Category $category): Response
+    {
+        return $this->update($user, $category);
+    }
+
+    /**
+     * Determine whether the user can restore the category.
+     */
+    public function restore(User $user, Category $category): Response
+    {
+        return $this->update($user, $category);
+    }
 }

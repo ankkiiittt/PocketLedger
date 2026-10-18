@@ -16,3 +16,6 @@
 @import './components/empty-state.css';
 @import './components/month-switcher.css';
 @import './components/charts.css';
+
+/* Pages */
+@import './pages/categories.css';

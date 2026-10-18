@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -70,9 +71,10 @@ Route::middleware('auth')->group(function () {
         return redirect()->route('dashboard');
     })->name('transactions.create');
 
-    Route::get('/categories', function () {
-        return redirect()->route('dashboard');
-    })->name('categories.index');
+    // Categories
+    Route::patch('/categories/{category}/archive', [CategoryController::class, 'archive'])->name('categories.archive');
+    Route::patch('/categories/{category}/restore', [CategoryController::class, 'restore'])->name('categories.restore');
+    Route::resource('categories', CategoryController::class)->except(['show']);
 
     Route::get('/budgets', function () {
         return redirect()->route('dashboard');
