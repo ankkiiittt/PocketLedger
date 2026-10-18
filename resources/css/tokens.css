@@ -1,0 +1,57 @@
+:root {
+    /* Palette - Light theme (calm, precise, warm paper ledger) */
+    --color-bg: #F6F4EE;
+    --color-surface: #FFFFFF;
+    --color-surface-alt: #EFEBE0;
+    --color-border: #DDD7C8;
+    --color-border-strong: #B9B2A0;
+    --color-text: #1F2A28;
+    --color-text-muted: #5B6764;
+    --color-primary: #1F5F4D;
+    --color-primary-hover: #17493B;
+    --color-on-primary: #FFFFFF;
+    --color-income: #2E7D4F;
+    --color-expense: #B4432F;
+    --color-warning: #B7791F;
+    --color-warning-text: #7A4E0C;
+    --color-danger: #A63A2A;
+    --color-info: #2F5F8A;
+    --color-focus: #2F5F8A;
+
+    /* Category Preset Colours (8 presets) */
+    --color-cat-pine: #1F5F4D;
+    --color-cat-brick: #B4432F;
+    --color-cat-slate: #2F5F8A;
+    --color-cat-ochre: #B7791F;
+    --color-cat-plum: #6B4E8F;
+    --color-cat-teal: #3D8B8B;
+    --color-cat-umber: #8A5A44;
+    --color-cat-olive: #6F7D3A;
+
+    /* Spacing scale (4px base) */
+    --space-1: 0.25rem;  /* 4px */
+    --space-2: 0.5rem;   /* 8px */
+    --space-3: 0.75rem;  /* 12px */
+    --space-4: 1rem;     /* 16px */
+    --space-5: 1.5rem;   /* 24px */
+    --space-6: 2rem;     /* 32px */
+    --space-7: 3rem;     /* 48px */
+    --space-8: 4rem;     /* 64px */
+
+    /* Typography */
+    --font-serif: 'Fraunces Variable', Georgia, serif;
+    --font-sans: 'Inter Variable', system-ui, -apple-system, sans-serif;
+
+    /* Radii */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-dialog: 0 8px 24px rgba(31, 42, 40, 0.12);
+
+    /* Dimensions */
+    --content-max-width: 1120px;
+    --sidebar-width: 248px;
+    --header-height: 64px;
+}

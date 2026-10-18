@@ -1,0 +1,139 @@
+/* Ledger Table Component Styles */
+.ledger-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.ledger-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+}
+
+.ledger-table th {
+    font-family: var(--font-sans);
+    font-size: 0.75rem; /* 12px */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+    text-align: left;
+    padding: var(--space-3) var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.ledger-table th.th-right,
+.ledger-table td.td-right {
+    text-align: right;
+}
+
+.ledger-table td {
+    padding: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: middle;
+}
+
+.ledger-table tbody tr {
+    transition: background-color 150ms ease-out;
+}
+
+.ledger-table tbody tr:hover {
+    background-color: var(--color-surface-alt);
+}
+
+/* Row states and amounts */
+.amount-income {
+    color: var(--color-income);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.amount-expense {
+    color: var(--color-expense);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.amount-neutral {
+    color: var(--color-text);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Category item inside table */
+.category-badge-item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+/* Totals Strip */
+.totals-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4) var(--space-6);
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-4);
+    font-size: 0.875rem;
+}
+
+.totals-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.totals-label {
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.totals-value {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Responsive Table / Stacked Rows on Mobile */
+@media (max-width: 639px) {
+    .responsive-stack-table thead {
+        display: none;
+    }
+
+    .responsive-stack-table,
+    .responsive-stack-table tbody,
+    .responsive-stack-table tr,
+    .responsive-stack-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .responsive-stack-table tr {
+        padding: var(--space-3) var(--space-2);
+        border-bottom: 1px solid var(--color-border);
+        position: relative;
+    }
+
+    .responsive-stack-table td {
+        padding: 2px 0;
+        border-bottom: none;
+    }
+
+    .stack-row-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+    }
+
+    .stack-row-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.8125rem;
+        color: var(--color-text-muted);
+        margin-top: 2px;
+    }
+}

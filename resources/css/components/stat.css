@@ -1,0 +1,66 @@
+/* Summary Tile Component Styles */
+.stat-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    position: relative;
+    overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+    .stat-card {
+        padding: var(--space-5);
+    }
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: var(--stat-rule-color, var(--color-border-strong));
+}
+
+.stat-card.stat-income::before {
+    background-color: var(--color-income);
+}
+
+.stat-card.stat-expense::before {
+    background-color: var(--color-expense);
+}
+
+.stat-card.stat-neutral::before {
+    background-color: var(--color-primary);
+}
+
+.stat-card.stat-budget::before {
+    background-color: var(--color-info);
+}
+
+.stat-label {
+    font-family: var(--font-sans);
+    font-size: 0.75rem; /* 12px */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-2);
+}
+
+.stat-value {
+    font-family: var(--font-serif);
+    font-size: 1.75rem; /* 28px */
+    line-height: 2.125rem; /* 34px */
+    font-weight: 600;
+    color: var(--color-text);
+    font-variant-numeric: tabular-nums;
+}
+
+.stat-subtitle {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+}
