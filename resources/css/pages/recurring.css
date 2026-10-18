@@ -1,0 +1,44 @@
+/* Recurring Transactions Page Styles */
+
+.recurring-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+}
+
+.recurring-toolbar-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+}
+
+.recurring-actions-cell {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-2);
+}
+
+@media (max-width: 639px) {
+    .recurring-toolbar-actions {
+        width: 100%;
+    }
+
+    .recurring-toolbar-actions .btn,
+    .recurring-toolbar-actions form {
+        flex: 1 1 auto;
+    }
+
+    .recurring-toolbar-actions form .btn {
+        width: 100%;
+    }
+
+    .recurring-actions-cell {
+        margin-top: var(--space-2);
+        justify-content: flex-start;
+    }
+}

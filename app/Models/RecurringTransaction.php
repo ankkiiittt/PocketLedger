@@ -5,12 +5,31 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\Frequency;
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Database\Factories\RecurringTransactionFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property int $category_id
+ * @property string $amount
+ * @property string|null $description
+ * @property Frequency $frequency
+ * @property CarbonImmutable|Carbon $start_date
+ * @property CarbonImmutable|Carbon|null $end_date
+ * @property CarbonImmutable|Carbon|null $next_run_date
+ * @property CarbonImmutable|Carbon|null $last_run_date
+ * @property int $runs_count
+ * @property bool $is_active
+ * @property CarbonImmutable|Carbon|null $created_at
+ * @property CarbonImmutable|Carbon|null $updated_at
+ * @property Category $category
+ */
 class RecurringTransaction extends Model
 {
     /** @use HasFactory<RecurringTransactionFactory> */

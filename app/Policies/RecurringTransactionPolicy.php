@@ -55,4 +55,12 @@ class RecurringTransactionPolicy
             ? Response::allow()
             : Response::denyAsNotFound();
     }
+
+    /**
+     * Determine whether the user can toggle the recurring transaction.
+     */
+    public function toggle(User $user, RecurringTransaction $recurringTransaction): Response
+    {
+        return $this->update($user, $recurringTransaction);
+    }
 }

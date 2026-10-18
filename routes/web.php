@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RecurringTransactionController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ReportDataController;
 use App\Http\Controllers\SettingsController;
@@ -78,9 +79,12 @@ Route::middleware('auth')->group(function () {
     Route::put('/budgets', [BudgetController::class, 'update'])->name('budgets.update');
     Route::post('/budgets/copy-previous', [BudgetController::class, 'copy'])->name('budgets.copy');
 
-    Route::get('/recurring', function () {
-        return redirect()->route('dashboard');
-    })->name('recurring.index');
+    // Recurring
+    Route::patch('/recurring/{recurringTransaction}/toggle', [RecurringTransactionController::class, 'toggle'])->name('recurring.toggle');
+    Route::post('/recurring/process-due', [RecurringTransactionController::class, 'processDue'])->name('recurring.process');
+    Route::resource('recurring', RecurringTransactionController::class)
+        ->parameters(['recurring' => 'recurringTransaction'])
+        ->except(['show']);
 
     // Reports
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
