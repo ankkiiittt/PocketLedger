@@ -9,6 +9,9 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ReportDataController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Auth;
@@ -54,9 +57,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [LogoutController::class, 'destroy'])->name('logout');
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Settings
     Route::get('/settings', [SettingsController::class, 'edit'])->name('settings.edit');
@@ -81,9 +82,11 @@ Route::middleware('auth')->group(function () {
         return redirect()->route('dashboard');
     })->name('recurring.index');
 
-    Route::get('/reports', function () {
-        return redirect()->route('dashboard');
-    })->name('reports.index');
+    // Reports
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/export', [ReportController::class, 'export'])->name('reports.export');
+    Route::get('/reports/data/category-breakdown', [ReportDataController::class, 'categoryBreakdown'])->name('reports.data.category-breakdown');
+    Route::get('/reports/data/monthly-trend', [ReportDataController::class, 'monthlyTrend'])->name('reports.data.monthly-trend');
 });
 
 /*

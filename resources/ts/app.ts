@@ -8,6 +8,7 @@ import { initConfirmDialog } from './modules/confirm-dialog';
 import { initSubmitGuard } from './modules/submit-guard';
 import { initTransactionForm } from './modules/transaction-form';
 import { initBudgetForm } from './modules/budget-form';
+import { initCharts } from './charts/chart-loader';
 
 document.addEventListener('DOMContentLoaded', () => {
     initNavDrawer();
@@ -16,4 +17,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initSubmitGuard();
     initTransactionForm();
     initBudgetForm();
+    initCharts();
 });
