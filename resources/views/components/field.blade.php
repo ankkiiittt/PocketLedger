@@ -69,6 +69,13 @@
                 {{ $slot }}
             </select>
         </div>
+    @elseif (isset($slot) && $slot->isNotEmpty())
+        <div class="input-wrapper {{ $suffix ? 'input-with-suffix' : '' }}">
+            {{ $slot }}
+            @if ($suffix)
+                <span class="input-suffix" aria-hidden="true">{{ $suffix }}</span>
+            @endif
+        </div>
     @else
         <div class="input-wrapper {{ $suffix ? 'input-with-suffix' : '' }}">
             <input

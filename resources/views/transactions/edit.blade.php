@@ -82,7 +82,7 @@
                         type="text"
                         name="amount"
                         id="amount"
-                        class="field-input transaction-amount-large"
+                        class="form-input transaction-amount-large"
                         inputmode="decimal"
                         value="{{ old('amount', $transaction->amount) }}"
                         required

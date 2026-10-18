@@ -77,9 +77,8 @@
                         type="text"
                         name="amount"
                         id="amount"
-                        class="field-input transaction-amount-large"
+                        class="form-input transaction-amount-large"
                         inputmode="decimal"
-                        placeholder="0.00"
                         value="{{ old('amount') }}"
                         required
                     >
