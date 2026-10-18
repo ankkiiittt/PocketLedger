@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TransactionController;
@@ -71,9 +72,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/categories/{category}/restore', [CategoryController::class, 'restore'])->name('categories.restore');
     Route::resource('categories', CategoryController::class)->except(['show']);
 
-    Route::get('/budgets', function () {
-        return redirect()->route('dashboard');
-    })->name('budgets.index');
+    // Budgets
+    Route::get('/budgets', [BudgetController::class, 'index'])->name('budgets.index');
+    Route::put('/budgets', [BudgetController::class, 'update'])->name('budgets.update');
+    Route::post('/budgets/copy-previous', [BudgetController::class, 'copy'])->name('budgets.copy');
 
     Route::get('/recurring', function () {
         return redirect()->route('dashboard');

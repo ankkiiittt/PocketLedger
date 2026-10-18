@@ -7,6 +7,7 @@ import { initFlash } from './modules/flash';
 import { initConfirmDialog } from './modules/confirm-dialog';
 import { initSubmitGuard } from './modules/submit-guard';
 import { initTransactionForm } from './modules/transaction-form';
+import { initBudgetForm } from './modules/budget-form';
 
 document.addEventListener('DOMContentLoaded', () => {
     initNavDrawer();
@@ -14,4 +15,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initConfirmDialog();
     initSubmitGuard();
     initTransactionForm();
+    initBudgetForm();
 });

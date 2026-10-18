@@ -1,19 +1,28 @@
 @props([
-    'currentMonth', // YYYY-MM
-    'currentLabel', // e.g. October 2026
-    'prevMonth',    // YYYY-MM
-    'nextMonth',    // YYYY-MM
+    'monthRange' => null,
+    'currentMonth' => null,
+    'currentLabel' => null,
+    'prevMonth' => null,
+    'nextMonth' => null,
     'baseUrl' => request()->url(),
 ])
 
 @php
-    $thisMonth = now()->format('Y-m');
-    $isCurrentMonth = ($currentMonth === $thisMonth);
-    $queryParams = request()->except('month', 'page');
+    if ($monthRange instanceof \App\Services\MonthRange) {
+        $currentMonth = $monthRange->currentMonth;
+        $currentLabel = $monthRange->label;
+        $prevMonth = $monthRange->prevMonth;
+        $nextMonth = $monthRange->nextMonth;
+        $isCurrentMonth = $monthRange->isCurrentMonth;
+    } else {
+        $thisMonth = now()->format('Y-m');
+        $isCurrentMonth = ($currentMonth === $thisMonth);
+    }
 
+    $queryParams = request()->except('month', 'page');
     $prevUrl = $baseUrl . '?' . http_build_query(array_merge($queryParams, ['month' => $prevMonth]));
     $nextUrl = $baseUrl . '?' . http_build_query(array_merge($queryParams, ['month' => $nextMonth]));
-    $thisMonthUrl = $baseUrl . '?' . http_build_query(array_merge($queryParams, ['month' => $thisMonth]));
+    $thisMonthUrl = $baseUrl . '?' . http_build_query(array_merge($queryParams, ['month' => now()->format('Y-m')]));
 @endphp
 
 <div class="month-switcher" role="navigation" aria-label="Month switcher">

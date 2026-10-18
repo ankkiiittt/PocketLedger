@@ -20,4 +20,5 @@
 /* Pages */
 @import './pages/categories.css';
 @import './pages/transactions.css';
+@import './pages/budgets.css';
 

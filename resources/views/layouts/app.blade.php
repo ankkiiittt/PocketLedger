@@ -185,6 +185,9 @@
                 @if (session('status'))
                     <x-flash type="info" :message="session('status')" />
                 @endif
+                @if (session('info'))
+                    <x-flash type="info" :message="session('info')" />
+                @endif
             </div>
 
             <!-- Page Slot -->

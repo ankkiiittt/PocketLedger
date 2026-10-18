@@ -4,11 +4,23 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Database\Factories\BudgetFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property int $category_id
+ * @property CarbonImmutable|Carbon $month
+ * @property string $amount_limit
+ * @property CarbonImmutable|Carbon|null $created_at
+ * @property CarbonImmutable|Carbon|null $updated_at
+ * @property Category $category
+ */
 class Budget extends Model
 {
     /** @use HasFactory<BudgetFactory> */
