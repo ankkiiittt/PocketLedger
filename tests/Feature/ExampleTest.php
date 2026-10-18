@@ -1,9 +1,18 @@
 <?php
 
 declare(strict_types=1);
+use App\Models\User;
 
-test('the application returns a successful response', function () {
+test('root redirects guests to login', function () {
     $response = $this->get('/');
 
-    $response->assertStatus(200);
+    $response->assertRedirect('/login');
+});
+
+test('root redirects authenticated users to dashboard', function () {
+    $user = User::factory()->create();
+
+    $response = $this->actingAs($user)->get('/');
+
+    $response->assertRedirect('/dashboard');
 });

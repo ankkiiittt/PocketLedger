@@ -2,12 +2,96 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\SettingsController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+/*
+|--------------------------------------------------------------------------
+| Entry Point
+|--------------------------------------------------------------------------
+*/
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
+
+    return redirect()->route('login');
 });
 
+/*
+|--------------------------------------------------------------------------
+| Guest Authentication Routes
+|--------------------------------------------------------------------------
+*/
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [LoginController::class, 'create'])->name('login');
+    Route::post('/login', [LoginController::class, 'store'])->name('login.store');
+
+    Route::get('/register', [RegisterController::class, 'create'])->name('register');
+    Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+
+    Route::get('/forgot-password', [ForgotPasswordController::class, 'create'])->name('password.request');
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'store'])->name('password.email');
+
+    Route::get('/reset-password/{token}', [ResetPasswordController::class, 'create'])->name('password.reset');
+    Route::post('/reset-password', [ResetPasswordController::class, 'store'])->name('password.update');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Authenticated Routes
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [LogoutController::class, 'destroy'])->name('logout');
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    // Settings
+    Route::get('/settings', [SettingsController::class, 'edit'])->name('settings.edit');
+    Route::put('/settings/profile', [SettingsController::class, 'updateProfile'])->name('settings.profile');
+    Route::put('/settings/password', [SettingsController::class, 'updatePassword'])->name('settings.password');
+    Route::delete('/settings/account', [SettingsController::class, 'destroy'])->name('settings.destroy');
+
+    // Route placeholders for layout navigation until phases 4-8
+    Route::get('/transactions', function () {
+        return redirect()->route('dashboard');
+    })->name('transactions.index');
+
+    Route::get('/transactions/create', function () {
+        return redirect()->route('dashboard');
+    })->name('transactions.create');
+
+    Route::get('/categories', function () {
+        return redirect()->route('dashboard');
+    })->name('categories.index');
+
+    Route::get('/budgets', function () {
+        return redirect()->route('dashboard');
+    })->name('budgets.index');
+
+    Route::get('/recurring', function () {
+        return redirect()->route('dashboard');
+    })->name('recurring.index');
+
+    Route::get('/reports', function () {
+        return redirect()->route('dashboard');
+    })->name('reports.index');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Local-Only Styleguide
+|--------------------------------------------------------------------------
+*/
 if (app()->environment('local')) {
     Route::get('/_styleguide', function () {
         return view('styleguide');
