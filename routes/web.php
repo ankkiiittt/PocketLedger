@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -62,14 +63,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/settings/password', [SettingsController::class, 'updatePassword'])->name('settings.password');
     Route::delete('/settings/account', [SettingsController::class, 'destroy'])->name('settings.destroy');
 
-    // Route placeholders for layout navigation until phases 4-8
-    Route::get('/transactions', function () {
-        return redirect()->route('dashboard');
-    })->name('transactions.index');
-
-    Route::get('/transactions/create', function () {
-        return redirect()->route('dashboard');
-    })->name('transactions.create');
+    // Transactions
+    Route::resource('transactions', TransactionController::class)->except(['show']);
 
     // Categories
     Route::patch('/categories/{category}/archive', [CategoryController::class, 'archive'])->name('categories.archive');

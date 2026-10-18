@@ -4,11 +4,26 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Database\Factories\TransactionFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property int $category_id
+ * @property string $amount
+ * @property CarbonImmutable|Carbon $transaction_date
+ * @property string|null $description
+ * @property int|null $recurring_transaction_id
+ * @property CarbonImmutable|Carbon|null $created_at
+ * @property CarbonImmutable|Carbon|null $updated_at
+ * @property Category $category
+ * @property RecurringTransaction|null $recurringTransaction
+ */
 class Transaction extends Model
 {
     /** @use HasFactory<TransactionFactory> */
