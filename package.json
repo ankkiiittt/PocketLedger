@@ -5,9 +5,7 @@
     "scripts": {
         "dev": "vite",
         "build": "tsc --noEmit && vite build",
-        "typecheck": "tsc --noEmit",
-        "lint": "eslint resources/ts tests/ts",
-        "test:ts": "vitest run"
+        "typecheck": "tsc --noEmit"
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",

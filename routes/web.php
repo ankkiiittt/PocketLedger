@@ -92,14 +92,3 @@ Route::middleware('auth')->group(function () {
     Route::get('/reports/data/category-breakdown', [ReportDataController::class, 'categoryBreakdown'])->name('reports.data.category-breakdown');
     Route::get('/reports/data/monthly-trend', [ReportDataController::class, 'monthlyTrend'])->name('reports.data.monthly-trend');
 });
-
-/*
-|--------------------------------------------------------------------------
-| Local-Only Styleguide
-|--------------------------------------------------------------------------
-*/
-if (app()->environment('local')) {
-    Route::get('/_styleguide', function () {
-        return view('styleguide');
-    })->name('styleguide');
-}
