@@ -48,18 +48,27 @@ function setupDonutChart(container: HTMLElement, prefersReducedMotion: boolean):
   const loadData = async () => {
     if (loadingEl) {
       loadingEl.hidden = false;
+      loadingEl.style.display = 'flex';
     }
     if (errorEl) {
       errorEl.hidden = true;
+      errorEl.style.display = 'none';
     }
     canvas.hidden = true;
+    canvas.style.display = 'none';
 
     try {
       const data = await fetchChartJson<CategoryBreakdownResponse>(url);
       if (loadingEl) {
         loadingEl.hidden = true;
+        loadingEl.style.display = 'none';
+      }
+      if (errorEl) {
+        errorEl.hidden = true;
+        errorEl.style.display = 'none';
       }
       canvas.hidden = false;
+      canvas.style.display = 'block';
 
       if (activeChart) {
         activeChart.destroy();
@@ -73,11 +82,14 @@ function setupDonutChart(container: HTMLElement, prefersReducedMotion: boolean):
     } catch {
       if (loadingEl) {
         loadingEl.hidden = true;
+        loadingEl.style.display = 'none';
       }
       if (errorEl) {
         errorEl.hidden = false;
+        errorEl.style.display = 'flex';
       }
       canvas.hidden = true;
+      canvas.style.display = 'none';
     }
   };
 
@@ -133,18 +145,27 @@ function setupTrendChart(container: HTMLElement, prefersReducedMotion: boolean):
   const loadData = async () => {
     if (loadingEl) {
       loadingEl.hidden = false;
+      loadingEl.style.display = 'flex';
     }
     if (errorEl) {
       errorEl.hidden = true;
+      errorEl.style.display = 'none';
     }
     canvas.hidden = true;
+    canvas.style.display = 'none';
 
     try {
       const data = await fetchChartJson<MonthlyTrendResponse>(url);
       if (loadingEl) {
         loadingEl.hidden = true;
+        loadingEl.style.display = 'none';
+      }
+      if (errorEl) {
+        errorEl.hidden = true;
+        errorEl.style.display = 'none';
       }
       canvas.hidden = false;
+      canvas.style.display = 'block';
 
       if (activeChart) {
         activeChart.destroy();
@@ -153,11 +174,14 @@ function setupTrendChart(container: HTMLElement, prefersReducedMotion: boolean):
     } catch {
       if (loadingEl) {
         loadingEl.hidden = true;
+        loadingEl.style.display = 'none';
       }
       if (errorEl) {
         errorEl.hidden = false;
+        errorEl.style.display = 'flex';
       }
       canvas.hidden = true;
+      canvas.style.display = 'none';
     }
   };
 

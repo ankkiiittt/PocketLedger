@@ -71,25 +71,43 @@
     padding: var(--space-4);
 }
 
+.chart-loading-wrap[hidden],
+.chart-error-wrap[hidden],
+.chart-container canvas[hidden] {
+    display: none !important;
+}
+
 /* Chart Legend */
+.donut-legend-list,
 .chart-legend {
     display: flex;
     flex-direction: column;
     gap: var(--space-2);
     margin-top: var(--space-4);
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
 }
 
+.donut-legend-item,
 .chart-legend-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-2);
-    padding: 2px 0;
+    padding: var(--space-1) 0;
+    border-bottom: 1px solid var(--color-surface-alt);
 }
 
+.donut-legend-label,
 .chart-legend-label {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: var(--space-2);
+    font-weight: 500;
+}
+
+.donut-legend-val,
+.chart-legend-val {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text);
 }
