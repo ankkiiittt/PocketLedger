@@ -14,6 +14,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // To seed demo data on demand, run: php artisan db:seed --class=DemoSeeder
+        $user = \App\Models\User::firstOrCreate(
+            ['email' => 'test@pocketledger.test'],
+            [
+                'name' => 'Test User',
+                'password' => 'password',
+                'currency_code' => 'INR',
+            ]
+        );
+
+        if ($user->categories()->count() === 0) {
+            app(\App\Actions\SeedDefaultCategories::class)->execute($user);
+        }
     }
 }
