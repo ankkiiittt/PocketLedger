@@ -40,7 +40,8 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 
 # Create required runtime directories for Nginx, Supervisor, and logs
-RUN mkdir -p /run/nginx /run/supervisord /var/log/supervisor /var/log/nginx /var/cache/nginx /var/lib/nginx
+RUN mkdir -p /run/nginx /run/supervisord /var/log/supervisor /var/log/nginx /var/cache/nginx /var/lib/nginx \
+    && echo -e "\n[www]\nclear_env = no\n" >> /usr/local/etc/php-fpm.d/zz-docker.conf
 
 # Copy application files
 COPY . .

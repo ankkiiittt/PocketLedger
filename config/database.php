@@ -49,7 +49,7 @@ return [
             'url' => env('DB_URL', env('MYSQL_URL')),
             'host' => env('DB_HOST', env('MYSQLHOST', '127.0.0.1')),
             'port' => env('DB_PORT', env('MYSQLPORT', '3306')),
-            'database' => env('DB_DATABASE', env('MYSQLDATABASE', 'pocketledger')),
+            'database' => env('DB_DATABASE', env('MYSQLDATABASE', 'railway')),
             'username' => env('DB_USERNAME', env('MYSQLUSER', 'root')),
             'password' => env('DB_PASSWORD', env('MYSQLPASSWORD', '')),
             'unix_socket' => env('DB_SOCKET', ''),
