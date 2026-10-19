@@ -31,20 +31,19 @@ if [ -z "$APP_KEY" ]; then
     export APP_KEY=$(php artisan key:generate --show)
 fi
 
-# Map Railway MySQL environment variables if present
-export DB_HOST=${DB_HOST:-$MYSQLHOST}
-export DB_PORT=${DB_PORT:-$MYSQLPORT}
-export DB_DATABASE=${DB_DATABASE:-${MYSQLDATABASE:-railway}}
-export DB_USERNAME=${DB_USERNAME:-${MYSQLUSER:-root}}
-export DB_PASSWORD=${DB_PASSWORD:-$MYSQLPASSWORD}
+# Check database configuration and test connection
+echo "Checking database configuration..."
+DB_SETTINGS=$(php /var/www/html/docker/check_db.php)
 
-if [ -n "$MYSQLHOST" ] || [ -n "$MYSQL_URL" ] || [ -n "$DB_HOST" ]; then
-    export DB_CONNECTION=${DB_CONNECTION:-mysql}
+# Export parsed database variables
+eval "$(echo "$DB_SETTINGS" | grep -E '^DB_' | sed 's/^/export /')"
+
+STATUS=$(echo "$DB_SETTINGS" | grep '^STATUS=' | cut -d= -f2)
+if [ "$STATUS" = "CONNECTED" ]; then
+    echo "Database: Successfully connected to MySQL (${DB_DATABASE} on ${DB_HOST})"
 else
-    export DB_CONNECTION=${DB_CONNECTION:-sqlite}
+    echo "Database: Using resilient SQLite database fallback (/var/www/html/database/database.sqlite)"
 fi
-
-echo "Database connection mode: ${DB_CONNECTION}"
 
 # Generate complete .env so Laravel config cache and runtime always have all values
 cat <<EOF > /var/www/html/.env
@@ -55,13 +54,10 @@ APP_DEBUG=${APP_DEBUG}
 APP_URL=${APP_URL:-https://pocketledger.up.railway.app}
 LOG_CHANNEL=${LOG_CHANNEL}
 SESSION_DRIVER=${SESSION_DRIVER}
-DB_CONNECTION=${DB_CONNECTION}
-DB_HOST=${DB_HOST:-127.0.0.1}
-DB_PORT=${DB_PORT:-3306}
-DB_DATABASE=${DB_DATABASE}
-DB_USERNAME=${DB_USERNAME}
-DB_PASSWORD=${DB_PASSWORD}
 EOF
+
+# Append database settings directly to .env
+echo "$DB_SETTINGS" | grep -E '^DB_' >> /var/www/html/.env
 
 # Ensure permissions across storage, bootstrap cache, database, and .env
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database /var/www/html/.env
