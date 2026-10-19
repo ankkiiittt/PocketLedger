@@ -11,6 +11,13 @@ envsubst '${PORT}' < /var/www/html/docker/nginx.conf.template > /etc/nginx/http.
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
+# Map Railway MySQL environment variables if present
+export DB_HOST=${DB_HOST:-$MYSQLHOST}
+export DB_PORT=${DB_PORT:-$MYSQLPORT}
+export DB_DATABASE=${DB_DATABASE:-$MYSQLDATABASE}
+export DB_USERNAME=${DB_USERNAME:-$MYSQLUSER}
+export DB_PASSWORD=${DB_PASSWORD:-$MYSQLPASSWORD}
+
 # Run database migrations if DB is configured
 if [ -n "$DB_HOST" ] && [ -n "$DB_DATABASE" ]; then
     echo "Running database migrations..."
