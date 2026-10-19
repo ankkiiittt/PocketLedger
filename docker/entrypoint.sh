@@ -4,7 +4,7 @@ set -e
 # Default settings
 export PORT=${PORT:-8080}
 export APP_ENV=${APP_ENV:-production}
-export APP_DEBUG=${APP_DEBUG:-false}
+export APP_DEBUG=true
 export LOG_CHANNEL=${LOG_CHANNEL:-stderr}
 export SESSION_DRIVER=${SESSION_DRIVER:-file}
 
