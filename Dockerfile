@@ -57,7 +57,7 @@ COPY docker/supervisord.conf /etc/supervisord.conf
 # Setup entrypoint script permissions
 RUN chmod +x /var/www/html/docker/entrypoint.sh
 
-# Expose web port (Railway dynamically injects $PORT at runtime, standard fallback is 8080)
-EXPOSE 8080
+# Expose web ports (supports dynamic $PORT, 8080, 10000, 80, 3000)
+EXPOSE 8080 10000 80 3000
 
 ENTRYPOINT ["/var/www/html/docker/entrypoint.sh"]

@@ -51,13 +51,22 @@ fi
 
 echo "Database connection mode: ${DB_CONNECTION}"
 
-# Configure Nginx
-echo "Configuring Nginx on port ${PORT}..."
+# Configure Nginx with multi-port listener (Railway dynamic PORT, 8080, 10000, 80, 3000)
+echo "Configuring Nginx with multi-port listener..."
 mkdir -p /etc/nginx/http.d
-envsubst '${PORT}' < /var/www/html/docker/nginx.conf.template > /etc/nginx/http.d/default.conf
 
-# Test Nginx configuration
-nginx -t
+php -r '
+$template = file_get_contents("/var/www/html/docker/nginx.conf.template");
+$port = (int) (getenv("PORT") ?: 8080);
+$ports = array_values(array_unique(array_filter([$port, 8080, 10000, 80, 3000])));
+$directives = implode("\n", array_map(fn($p) => "    listen {$p};", $ports));
+$conf = str_replace("__LISTEN_DIRECTIVES__", $directives, $template);
+file_put_contents("/etc/nginx/http.d/default.conf", $conf);
+echo "Nginx configured to listen on ports: " . implode(", ", $ports) . "\n";
+'
+
+# Test Nginx configuration and send output to stdout so it appears normal in Railway logs
+nginx -t 2>&1
 
 # Run database migrations and seeding
 if [ "$DB_CONNECTION" = "mysql" ]; then

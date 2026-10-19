@@ -1,5 +1,5 @@
 server {
-    listen ${PORT};
+__LISTEN_DIRECTIVES__
     server_name _;
     root /var/www/html/public;
 
