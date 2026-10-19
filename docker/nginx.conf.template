@@ -7,9 +7,16 @@ server {
     add_header X-Content-Type-Options "nosniff";
     add_header Referrer-Policy "strict-origin-when-cross-origin";
 
-    index index.php;
+    index index.php index.html;
 
     charset utf-8;
+
+    # Health check endpoint for Railway
+    location = /healthz {
+        access_log off;
+        default_type text/plain;
+        return 200 "healthy\n";
+    }
 
     location / {
         try_files $uri $uri/ /index.php?$query_string;
@@ -24,7 +31,11 @@ server {
         fastcgi_pass 127.0.0.1:9000;
         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
         include fastcgi_params;
+        fastcgi_param HTTP_X_FORWARDED_FOR $http_x_forwarded_for;
+        fastcgi_param HTTP_X_FORWARDED_PROTO $http_x_forwarded_proto;
+        fastcgi_param HTTP_HOST $http_host;
         fastcgi_hide_header X-Powered-By;
+        fastcgi_read_timeout 600;
     }
 
     location ~ /\.(?!well-known).* {

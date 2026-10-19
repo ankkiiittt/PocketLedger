@@ -39,6 +39,9 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
+# Create required runtime directories for Nginx, Supervisor, and logs
+RUN mkdir -p /run/nginx /run/supervisord /var/log/supervisor /var/log/nginx /var/cache/nginx /var/lib/nginx
+
 # Copy application files
 COPY . .
 
@@ -54,7 +57,7 @@ COPY docker/supervisord.conf /etc/supervisord.conf
 # Setup entrypoint script permissions
 RUN chmod +x /var/www/html/docker/entrypoint.sh
 
-# Expose Render default port
-EXPOSE 10000
+# Expose web port (Railway dynamically injects $PORT at runtime, standard fallback is 8080)
+EXPOSE 8080
 
 ENTRYPOINT ["/var/www/html/docker/entrypoint.sh"]

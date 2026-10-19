@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Actions\SeedDefaultCategories;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = \App\Models\User::firstOrCreate(
+        $user = User::firstOrCreate(
             ['email' => 'test@pocketledger.test'],
             [
                 'name' => 'Test User',
@@ -24,7 +26,7 @@ class DatabaseSeeder extends Seeder
         );
 
         if ($user->categories()->count() === 0) {
-            app(\App\Actions\SeedDefaultCategories::class)->execute($user);
+            app(SeedDefaultCategories::class)->execute($user);
         }
     }
 }
